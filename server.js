@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.static('public'));
 
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use('/api', api);
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
@@ -25,6 +25,13 @@ app.get('/api/notes', (req, res) => {
         res.json(JSON.parse(data))
         console.log('this is the data from the get request', JSON.parse(data));
     })
+})
+
+app.get('api/notes/:id', (req, res) => {
+    console.log(req.params.id)
+    if (req.params.id) {
+        console.log(`${req.method} request received to get a single review`)
+    }
 })
 
 app.post('/api/notes', (req, res) => {
@@ -45,15 +52,24 @@ app.post('/api/notes', (req, res) => {
     } else {
         res.error('Error in adding tip!');
     }
-
 })
 
 app.delete('/api/notes/:id', (req, res) => {
-    res.json(`${req.method} request received`);
     console.info(`${req.method} request received`);
-
+    if (req.params.id) {
+        console.log(`${req.method} request received to delete a single review`)
+        const noteId = req.params.id;
+        for (let i = 0; i < db.length; i++) {
+            const currentNote = db[i];
+            if (currentNote.id === noteId) {
+                console.log(currentNote)
+            }
+        }
+    }
 
 })
+
+
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
 
