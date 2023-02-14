@@ -41,6 +41,7 @@ app.delete('/notes/:id', (req, res) => {
     if (req.params.id) {
         console.log(`${req.method} request received to delete a single review`)
         const noteId = req.params.id;
+        console.log(noteId);
         for (let i = 0; i < db.length; i++) {
             const currentNote = db[i];
             if (currentNote.id === noteId) {
