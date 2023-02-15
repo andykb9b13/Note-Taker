@@ -20,9 +20,6 @@ app.get('/notes/:id', (req, res) => {
 })
 
 app.post('/notes', (req, res) => {
-    res.json(`${req.method} request received`);
-    console.info(`${req.method} request received`);
-
     const { title, text } = req.body;
     if (req.body) {
         const newNote = {
@@ -31,8 +28,9 @@ app.post('/notes', (req, res) => {
             id: uuidv4(),
         }
         readAndAppend(newNote, './db/db.json');
+        res.json(`${req.method} request received`);
     } else {
-        res.error('Error in adding tip!');
+        res.error('Error in adding note!');
     }
 })
 
