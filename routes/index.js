@@ -42,18 +42,23 @@ app.delete('/notes/:id', (req, res) => {
         console.log(`${req.method} request received to delete a single review`)
         const noteId = req.params.id;
         console.log("this is the note id", noteId);
-        for (let i = 0; i < db.length; i++) {
-            const currentNote = db[i];
-            console.log("this is the current note", currentNote)
-            if (currentNote.id === noteId) {
-                console.log("this is current note", currentNote)
-                db.splice(i, 1);
-                console.log("this is db after splice", db);
-                fs.writeFileSync('./db/db.json', JSON.stringify(db),
-                    (err) => (err) ? console.log("trouble writing the file") : ("success, updated the db")
-                );
-            }
-        }
+        const newDb = db.filter(note => note.id !== noteId);
+        console.log("This is filtered newDb", newDb)
+        fs.writeFileSync('./db/db.json', JSON.stringify(newDb),
+            (err) => (err) ? console.log("trouble writing the file") : ("success, updated the db")
+        );
+        // for (let i = 0; i < db.length; i++) {
+        //     const currentNote = db[i];
+        //     console.log("this is the current note", currentNote)
+        //     if (currentNote.id === noteId) {
+        //         console.log("this is current note", currentNote)
+        //         db.splice(i, 1);
+        //         console.log("this is db after splice", db);
+        //         fs.writeFileSync('./db/db.json', JSON.stringify(db),
+        //             (err) => (err) ? console.log("trouble writing the file") : ("success, updated the db")
+        //         );
+        //     }
+        // }
         res.json({ message: "ok" });
     }
 
