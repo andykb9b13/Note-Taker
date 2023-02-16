@@ -1,6 +1,6 @@
 # Note Taker App
 
-![License Badge](https://img.shields.io/github/license/andykb9b13/note-taker)
+![License Badge](https://img.shields.io/github/license/andykb9b13/Note-Taker)
 
 ## Table of Contents
 1. [Project Intro](#project-intro)
