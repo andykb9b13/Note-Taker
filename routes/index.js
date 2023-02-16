@@ -39,7 +39,7 @@ app.delete('/notes/:id', (req, res) => {
         const noteId = req.params.id;
         const newDb = db.filter(note => note.id !== noteId);
         console.log("This is filtered newDb", newDb);
-        fs.writeFileSync('./db/db.json', JSON.stringify(newDb),
+        fs.writeFile('./db/db.json', JSON.stringify(newDb),
             (err) => (err) ? console.log("trouble writing the file") : ("success, updated the db")
         );
         res.json({ message: "ok" });
